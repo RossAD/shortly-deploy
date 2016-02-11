@@ -86,7 +86,7 @@ module.exports = function(grunt) {
     sshexec: {
       deploy: {
         command: [
-          'cd /root/shortly-deploy',
+          'cd root/shortly-deploy',
           'npm install',
           'nodemon server.js'
         ].join(' && '),
@@ -157,7 +157,7 @@ module.exports = function(grunt) {
     grunt.task.run([ 'build' ]);
     grunt.task.run([ 'upload' ]);
     grunt.task.run([ 'watch' ]);
-    grunt.task.run([ 'sshexec:deploy' ]);
+    grunt.task.run([ 'sshexec' ]);
 
 
   });
