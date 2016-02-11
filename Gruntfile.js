@@ -38,11 +38,20 @@ module.exports = function(grunt) {
 
     eslint: {
       target: [
+        'public/client/*.js',
         // Add list of files to lint here
       ]
     },
 
     cssmin: {
+      target: {
+        files: {
+          'public/dist/min.css': ['public/*.css']
+        }
+      }
+    },
+    processhtml: {
+      files: {'views/index.ejs': ['views/index.ejs']}
     },
 
     watch: {
@@ -66,6 +75,26 @@ module.exports = function(grunt) {
       prodServer: {
       }
     },
+    sshconfig: {
+      someserver: {
+        host: 'http://104.236.180.13:4568/', // is this right?
+        username: 'root',
+        agent: process.env.SSH_AUTH_SOCK,
+        agentForward: true
+      }
+    },
+    sshexec: {
+      deploy: {
+        command: [
+          'cd /root/shortly-deploy',
+          'npm install',
+          'nodemon server.js'
+        ].join(' && '),
+        options: {
+          config: 'someserver'
+        }
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -77,7 +106,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-exec');
-
+  grunt.loadNpmTasks('grunt-ssh');
+  grunt.loadNpmTasks('grunt-processhtml');
 
   grunt.registerTask('server-dev', function (target) {
     // Running nodejs in a different process and displaying output on the main console
@@ -101,26 +131,36 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', ['concat','uglify']);
+  grunt.registerTask('build', ['concat','uglify','cssmin','processhtml']);
 
   grunt.registerTask('upload', function(n) {
-    if (grunt.option('prod')) {
+    // if (grunt.option('prod')) {
       // git push live master
       grunt.task.run(['exec']);
       //push to live master
       // add your production server task here
-    } else {
-      grunt.task.run([ 'server-dev' ]);
-    }
+    // } else {
+    //   grunt.task.run([ 'server-dev' ]);
+    // }
   });
 
-  grunt.registerTask('deploy', [
-    'server-dev',
-    'test',
-    'build',
-    'upload:prod'
-    // DEPLOY push to live master
-  ]);
+  grunt.registerTask('deploy', function(target) {
+    var nodemon = grunt.util.spawn({
+      cmd: 'grunt',
+      grunt: true,
+      args: 'nodemon'
+    });
+    nodemon.stdout.pipe(process.stdout);
+    nodemon.stderr.pipe(process.stderr);
+    
+    grunt.task.run([ 'test' ]);
+    grunt.task.run([ 'build' ]);
+    grunt.task.run([ 'upload' ]);
+    grunt.task.run([ 'watch' ]);
+    grunt.task.run([ 'sshexec:deploy' ]);
+
+
+  });
 
 
 };
