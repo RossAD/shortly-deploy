@@ -160,7 +160,6 @@ module.exports = function(grunt) {
     
     grunt.task.run([ 'test' ]);
     // grunt.task.run([ 'build' ]);
-    // nodemon.send('quit');
     grunt.task.run([ 'upload' ]);
     // grunt.task.run([ 'watch' ]);
 
