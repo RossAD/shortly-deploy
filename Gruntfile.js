@@ -75,6 +75,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+
       }
     },
     // sshconfig: {
@@ -111,6 +112,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-ssh');
   grunt.loadNpmTasks('grunt-processhtml');
+  grunt.loadNpmTasks('grunt-npm-install');
 
   grunt.registerTask('server-dev', function (target) {
     // Running nodejs in a different process and displaying output on the main console
@@ -134,7 +136,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', ['concat','uglify','cssmin','processhtml']);
+  grunt.registerTask('build', ['concat','uglify','cssmin','processhtml', 'npm-install']);
 
   grunt.registerTask('upload', function(n) {
     // if (grunt.option('prod')) {
