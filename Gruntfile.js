@@ -51,8 +51,10 @@ module.exports = function(grunt) {
       }
     },
     processhtml: {
-      files: {'views/index.ejs': ['views/index.ejs']}
-    },
+      target:{
+        files: {'views/index.ejs': ['views/index.ejs']}
+        } 
+      },
 
     watch: {
       scripts: {
