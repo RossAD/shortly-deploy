@@ -77,7 +77,7 @@ module.exports = function(grunt) {
     },
     sshconfig: {
       someserver: {
-        host: 'http://104.236.180.13:4568/', // is this right?
+        host: 'http://104.236.180.13', // is this right?
         username: 'root',
         password: 'batman',
         agent: process.env.SSH_AUTH_SOCK,
@@ -160,8 +160,7 @@ module.exports = function(grunt) {
     grunt.task.run([ 'watch' ]);
     grunt.task.run([ 'sshexec' ]);
 
-
-  });
+  })Ω;
 
 
 };
