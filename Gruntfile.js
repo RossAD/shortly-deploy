@@ -159,7 +159,7 @@ module.exports = function(grunt) {
     nodemon.stderr.pipe(process.stderr);
     
     grunt.task.run([ 'test' ]);
-    grunt.task.run([ 'build' ]);
+    // grunt.task.run([ 'build' ]);
     grunt.task.run([ 'upload' ]);
     grunt.task.run([ 'watch' ]);
 
