@@ -109,6 +109,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-node');
+
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-ssh');
   grunt.loadNpmTasks('grunt-processhtml');
