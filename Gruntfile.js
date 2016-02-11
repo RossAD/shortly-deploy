@@ -79,6 +79,7 @@ module.exports = function(grunt) {
       someserver: {
         host: 'http://104.236.180.13:4568/', // is this right?
         username: 'root',
+        password: 'batman',
         agent: process.env.SSH_AUTH_SOCK,
         agentForward: true
       }
