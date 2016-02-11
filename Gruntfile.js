@@ -2,7 +2,15 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    exec: {
+      uploadToServer: 'git push live master'
+    },
     concat: {
+      options: { separator: ';'},
+      dist : {
+        src : ['public/client/**/*.js'],
+        dest : 'public/dist/<%= pkg.name %>.js'
+      }
     },
 
     mochaTest: {
@@ -21,6 +29,11 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      target: {
+        files: {
+          'public/dist/<%= pkg.name %>.min.js' : ['<%= concat.dist.dest %>']
+        }
+      }
     },
 
     eslint: {
@@ -63,6 +76,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-exec');
+
 
   grunt.registerTask('server-dev', function (target) {
     // Running nodejs in a different process and displaying output on the main console
@@ -77,27 +92,22 @@ module.exports = function(grunt) {
     grunt.task.run([ 'watch' ]);
   });
 
-
-  grunt.registerTask('upload', function(n) {
-    if (grunt.option('prod')) {
-      // add your production server task here
-    }
-    grunt.task.run([ 'server-dev' ]);
-  });
-
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
+    'eslint',
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
-  ]);
+  grunt.registerTask('build', ['concat','uglify']);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
+      // git push live master
+      grunt.task.run(['exec']);
+      //push to live master
       // add your production server task here
     } else {
       grunt.task.run([ 'server-dev' ]);
@@ -105,7 +115,11 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', [
-    // add your deploy tasks here
+    'server-dev',
+    'test',
+    'build',
+    'upload:prod'
+    // DEPLOY push to live master
   ]);
 
 

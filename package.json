@@ -32,6 +32,8 @@
     "sqlite3": "~3.1.0"
   },
   "devDependencies": {
+    "grunt-exec": "^0.4.6",
+    "grunt-ssh": "^0.12.9",
     "supertest": "^0.10.0"
   }
 }
