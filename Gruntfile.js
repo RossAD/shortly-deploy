@@ -116,13 +116,13 @@ module.exports = function(grunt) {
 
   grunt.registerTask('server-dev', function (target) {
     // Running nodejs in a different process and displaying output on the main console
-    var nodemon = grunt.util.spawn({
+    var node = grunt.util.spawn({
       cmd: 'grunt',
       grunt: true,
-      args: 'nodemon'
+      args: 'node'
     });
-    nodemon.stdout.pipe(process.stdout);
-    nodemon.stderr.pipe(process.stderr);
+    node.stdout.pipe(process.stdout);
+    node.stderr.pipe(process.stderr);
 
     grunt.task.run([ 'watch' ]);
   });
@@ -150,18 +150,18 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', function(target) {
-    var nodemon = grunt.util.spawn({
+    var node = grunt.util.spawn({
       cmd: 'grunt',
       grunt: true,
-      args: 'nodemon'
+      args: 'node'
     });
-    nodemon.stdout.pipe(process.stdout);
-    nodemon.stderr.pipe(process.stderr);
+    node.stdout.pipe(process.stdout);
+    node.stderr.pipe(process.stderr);
     
     grunt.task.run([ 'test' ]);
     // grunt.task.run([ 'build' ]);
     grunt.task.run([ 'upload' ]);
-    grunt.task.run([ 'watch' ]);
+    // grunt.task.run([ 'watch' ]);
 
   });
 
