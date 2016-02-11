@@ -75,27 +75,27 @@ module.exports = function(grunt) {
       prodServer: {
       }
     },
-    sshconfig: {
-      someserver: {
-        host: 'http://104.236.180.13', // is this right?
-        username: 'root',
-        password: 'batman',
-        agent: process.env.SSH_AUTH_SOCK,
-        agentForward: true
-      }
-    },
-    sshexec: {
-      deploy: {
-        command: [
-          'cd root/shortly-deploy',
-          'npm install',
-          'nodemon server.js'
-        ].join(' && '),
-        options: {
-          config: 'someserver'
-        }
-      }
-    }
+    // sshconfig: {
+    //   someserver: {
+    //     host: '104.236.180.13', // is this right?
+    //     username: 'root',
+    //     password: 'batman',
+    //     agent: process.env.SSH_AUTH_SOCK,
+    //     agentForward: true
+    //   }
+    // },
+    // sshexec: {
+    //   deploy: {
+    //     command: [
+    //       'cd root/shortly-deploy',
+    //       'npm install',
+    //       'nodemon server.js'
+    //     ].join(' && '),
+    //     options: {
+    //       config: 'someserver'
+    //     }
+    //   }
+    // }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -158,9 +158,8 @@ module.exports = function(grunt) {
     grunt.task.run([ 'build' ]);
     grunt.task.run([ 'upload' ]);
     grunt.task.run([ 'watch' ]);
-    grunt.task.run([ 'sshexec' ]);
 
-  })Ω;
+  });
 
 
 };
