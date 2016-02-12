@@ -119,6 +119,7 @@ describe('', function() {
 
       it('Shortcode redirects to correct url', function(done) {
         var sha = link.code;
+        console.log("in test: ",sha);
         request(app)
           .get('/' + sha)
           .expect(302)
