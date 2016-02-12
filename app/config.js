@@ -1,12 +1,37 @@
-// var path = require('path');
-// // var knex = require('knex')({
-// //   client: 'sqlite3',
-// //   connection: {
-// //     filename: path.join(__dirname, '../db/shortly.sqlite')
-// //   }
-// // });
-// // var db = require('bookshelf')(knex);
-// var mongoose = require('mongoose');
+// var knex = require('knex')({
+//   client: 'sqlite3',
+//   connection: {
+//     filename: path.join(__dirname, '../db/shortly.sqlite')
+//   }
+// });
+// var db = require('bookshelf')(knex);
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/db');
+var db = mongoose.connection;
+
+var userSchema = new mongoose.Schema ({
+    url: String,
+    username: String,
+    password: String,
+    createdAt: Date
+  });
+
+exports.User = mongoose.model('User', userSchema);
+
+  var linkSchema = new mongoose.Schema ({
+    url: String,
+    baseUrl: String,
+    code: String,
+    title: String,
+    visits: Number,
+    createdAt: Date
+});
+
+exports.Link = mongoose.model('Link', linkSchema);
+
+exports.mongoose = mongoose;
+
 
 // // db.knex.schema.hasTable('urls').then(function(exists) {
 // //   if (!exists) {
@@ -42,4 +67,3 @@
 // // MONGOOSE:
 
 
-// module.exports = db;

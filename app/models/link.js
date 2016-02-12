@@ -1,16 +1,16 @@
-// var db = require('../config');
+var db = require('../config');
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 
-var linkSchema = new mongoose.Schema ({
-  url: String,
-  baseUrl: String,
-  code: String,
-  title: String,
-  visits: Number,
-  createdAt: Date
-});
+// var linkSchema = new mongoose.Schema ({
+//   url: String,
+//   baseUrl: String,
+//   code: String,
+//   title: String,
+//   visits: Number,
+//   createdAt: Date
+// });
 
 
 // var Link = db.Model.extend({
@@ -22,6 +22,6 @@ var linkSchema = new mongoose.Schema ({
  
 // });
 
-var Link = mongoose.model('Link', linkSchema);
+var Link = mongoose.model('Link', db.linkSchema);
 module.exports = Link;
 

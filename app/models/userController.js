@@ -20,7 +20,7 @@
 
   exports.hashPassword = function() {
     var cipher = Promise.promisify(bcrypt.hash);
-    return cipher(this.get('password'), null, null).bind(this)
+    return cipher(this.password, null, null).bind(this)
       .then(function(hash) {
         this.set('password', hash);
       });
