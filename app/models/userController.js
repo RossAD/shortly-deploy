@@ -5,10 +5,16 @@
     this.on('creating', this.hashPassword);
   };
 
-  exports.comparePassword = function(attemptedPassword, callback) {
+  exports.comparePassword = function(attemptedPassword, user, callback) {
     // Refactor mongoDB
-    bcrypt.compare(attemptedPassword, this.get('password'), function(err, isMatch) {
-      callback(isMatch);
+    User.FindOne({username: user}, function (err, user) {
+      if (err) {
+        console.log("err ",err);
+      } else {
+        bcrypt.compare(attemptedPassword, user.password, function(err, isMatch) {
+          callback(isMatch);
+        });
+      }
     });
   };
 
