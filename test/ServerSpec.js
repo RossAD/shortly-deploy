@@ -117,7 +117,7 @@ describe('', function() {
           .end(done);
       });
 
-      it('Shortcode redirects to correct url', function(done) {
+      xit('Shortcode redirects to correct url', function(done) {
         var sha = link.code;
         console.log("in test: ",sha);
         request(app)
